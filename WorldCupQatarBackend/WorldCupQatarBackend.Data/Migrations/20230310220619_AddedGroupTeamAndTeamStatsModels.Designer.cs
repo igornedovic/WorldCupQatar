@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorldCupQatarBackend.Data;
 
 namespace WorldCupQatarBackend.Data.Migrations
 {
     [DbContext(typeof(WorldCupDbContext))]
-    partial class WorldCupDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230310220619_AddedGroupTeamAndTeamStatsModels")]
+    partial class AddedGroupTeamAndTeamStatsModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -14,6 +14,9 @@ namespace WorldCupQatarBackend.Data
         public DbSet<WorldCup> WorldCups { get; set; }
         public DbSet<Stadium> Stadiums { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TeamStats> TeamsStats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,6 +39,29 @@ namespace WorldCupQatarBackend.Data
 
             // Location
             modelBuilder.Entity<Stadium>().Property(l => l.Name).IsRequired();
+
+            // Group
+            modelBuilder.Entity<Group>().HasKey(g => new { g.Id, g.WorldCupId });
+            modelBuilder.Entity<Group>().Property(g => g.Name).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Group>().HasOne(g => g.WorldCup).WithMany(wc => wc.Groups)
+                 .HasForeignKey(g => g.WorldCupId).OnDelete(DeleteBehavior.Cascade);
+
+            // Team
+            modelBuilder.Entity<Team>().Property(t => t.Name).IsRequired();
+            modelBuilder.Entity<Team>().Property(t => t.IconUrl).IsRequired();
+            modelBuilder.Entity<Team>().HasOne(t => t.Group).WithMany(g => g.Teams)
+                 .HasForeignKey(s => new { s.GroupId, s.WorldCupId }).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Team>().HasOne(t => t.TeamStats).WithMany()
+                .HasForeignKey(s => s.TeamStatsId).OnDelete(DeleteBehavior.Restrict);
+
+            // TeamStats
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.MatchesPlayed).IsRequired();
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.Wins).IsRequired();
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.Draws).IsRequired();
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.Losses).IsRequired();
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.GoalsScored).IsRequired();
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.GoalsConceded).IsRequired();
+            modelBuilder.Entity<TeamStats>().Property(ts => ts.Points).IsRequired();
         }
     }
 }

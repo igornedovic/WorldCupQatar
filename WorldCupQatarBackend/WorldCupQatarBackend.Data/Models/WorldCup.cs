@@ -13,5 +13,6 @@ namespace WorldCupQatarBackend.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Stadium> Stadiums { get; set; } = new List<Stadium>();
+        public List<Group> Groups { get; set; } = new List<Group>();
     }
 }
