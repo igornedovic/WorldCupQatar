@@ -1,0 +1,34 @@
+[
+  {
+    "Id": 1,
+    "Name": "Al Khor"
+  },
+  {
+    "Id": 2,
+    "Name": "Umm Al Afaei"
+  },
+  {
+    "Id": 3,
+    "Name": "Al Wakrah"
+  },
+  {
+    "Id": 4,
+    "Name": "Aspire"
+  },
+  {
+    "Id": 5,
+    "Name": "Education City in Al Rayyan"
+  },
+  {
+    "Id": 6,
+    "Name": "Lusail"
+  },
+  {
+    "Id": 7,
+    "Name": "Ras Abu Aboud"
+  },
+  {
+    "Id": 8,
+    "Name": "Al Thumama"
+  }
+]

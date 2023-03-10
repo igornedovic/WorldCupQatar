@@ -1,0 +1,58 @@
+[
+  {
+    "Id": 1,
+    "Name": "Al Bayt",
+    "Capacity": 68895,
+    "WorldCupId": 1,
+    "LocationId": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Ahmad Bin Ali",
+    "Capacity": 45032,
+    "WorldCupId": 1,
+    "LocationId": 2
+  },
+  {
+    "Id": 3,
+    "Name": "Al Janoub",
+    "Capacity": 44325,
+    "WorldCupId": 1,
+    "LocationId": 3
+  },
+  {
+    "Id": 4,
+    "Name": "Khalifa International",
+    "Capacity": 45857,
+    "WorldCupId": 1,
+    "LocationId": 4
+  },
+  {
+    "Id": 5,
+    "Name": "Education City",
+    "Capacity": 44667,
+    "WorldCupId": 1,
+    "LocationId": 5
+  },
+  {
+    "Id": 6,
+    "Name": "Lusail",
+    "Capacity": 88966,
+    "WorldCupId": 1,
+    "LocationId": 6
+  },
+  {
+    "Id": 7,
+    "Name": "974",
+    "Capacity": 44089,
+    "WorldCupId": 1,
+    "LocationId": 7
+  },
+  {
+    "Id": 8,
+    "Name": "Al Thumama",
+    "Capacity": 44400,
+    "WorldCupId": 1,
+    "LocationId": 8
+  }
+]
