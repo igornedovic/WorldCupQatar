@@ -25,7 +25,7 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
         }
         public async Task<WorldCupReadDto> GetWorldCupByIdAsync(int id)
         {
-            var worldCup = await _unitOfWork.WorldCupRepository.GetByIdAsync(id, includes: new List<Func<IQueryable<WorldCup>, IIncludableQueryable<WorldCup, object>>>()
+            var worldCup = await _unitOfWork.WorldCupRepository.GetFirstAsync(filter: x => x.Id == id, includes: new List<Func<IQueryable<WorldCup>, IIncludableQueryable<WorldCup, object>>>()
             {
                 { x => x.Include(wc => wc.Stadiums).ThenInclude(s => s.Location)}
             }

@@ -43,6 +43,7 @@ namespace WorldCupQatarBackend.API
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
             services.AddScoped<IWorldCupService, WorldCupService>();
+            services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

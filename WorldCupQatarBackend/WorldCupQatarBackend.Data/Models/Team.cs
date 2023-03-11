@@ -15,7 +15,12 @@ namespace WorldCupQatarBackend.Data.Models
         public int GroupId { get; set; }
         public int WorldCupId { get; set; }
         public Group Group { get; set; }
-        public int TeamStatsId { get; set; }
-        public TeamStats TeamStats { get; set; }
+        public int MatchesPlayed { get; set; }
+        public int Wins { get; set; }
+        public int Draws { get; set; }
+        public int Losses { get; set; }
+        public int GoalsScored { get; set; }
+        public int GoalsConceded { get; set; }
+        public int Points { get; set; }
     }
 }

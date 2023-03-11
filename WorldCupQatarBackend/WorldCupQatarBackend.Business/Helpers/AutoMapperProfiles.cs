@@ -13,8 +13,16 @@ namespace WorldCupQatarBackend.Business.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<WorldCup, WorldCupReadDto>();
+
             CreateMap<Stadium, StadiumReadDto>();
+
             CreateMap<Location, LocationReadDto>();
+
+            CreateMap<GroupCreateDto, Group>();
+            CreateMap<Group, GroupReadDto>();
+
+            CreateMap<TeamCreateDto, Team>();
+            CreateMap<Team, TeamReadDto>();
         }
     }
 }

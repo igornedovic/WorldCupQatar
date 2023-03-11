@@ -41,16 +41,21 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
 
             return query;
         }
-        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
+        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
         {
             return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderByDesc)
                         .ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id, Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
+        public async Task<T> GetFirstAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
         {
             return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderByDesc)
-                        .FirstOrDefaultAsync(x => x.Id == id);
+                        .FirstOrDefaultAsync();
+        }
+
+        public void Add(T entity)
+        {
+            _context.Set<T>().Add(entity);
         }
     }
 }

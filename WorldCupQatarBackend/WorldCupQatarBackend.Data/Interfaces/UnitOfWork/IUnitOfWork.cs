@@ -9,8 +9,9 @@ namespace WorldCupQatarBackend.Data.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        public ITeamRepository TeamRepository { get; set; }
         public IWorldCupRepository WorldCupRepository { get; set; }
+        public IGroupRepository GroupRepository { get; set; }
+        public ITeamRepository TeamRepository { get; set; }
         public Task<bool> CommitAsync();
     }
 }

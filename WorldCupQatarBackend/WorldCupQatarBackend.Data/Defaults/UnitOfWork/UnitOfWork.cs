@@ -16,11 +16,13 @@ namespace WorldCupQatarBackend.Data.Defaults.UnitOfWork
         public UnitOfWork(WorldCupDbContext context)
         {
             _context = context;
-            TeamRepository = new TeamRepository(_context);
             WorldCupRepository = new WorldCupRepository(_context);
+            GroupRepository = new GroupRepository(_context);
+            TeamRepository = new TeamRepository(_context);
         }
-        public ITeamRepository TeamRepository { get; set; }
         public IWorldCupRepository WorldCupRepository { get; set; }
+        public IGroupRepository GroupRepository { get; set; }
+        public ITeamRepository TeamRepository { get; set; }
 
         public async Task<bool> CommitAsync()
         {

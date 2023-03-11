@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WorldCupQatarBackend.Data.Interfaces.Models;
 
-namespace WorldCupQatarBackend.Data.Models
+namespace WorldCupQatarBackend.Business.DTOs
 {
-    public class TeamStats : IEntity
+    public class TeamReadDto
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string IconUrl { get; set; }
         public int MatchesPlayed { get; set; }
         public int Wins { get; set; }
         public int Draws { get; set; }
