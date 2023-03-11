@@ -8,9 +8,7 @@ namespace WorldCupQatarBackend.Business.DTOs
 {
     public class TeamCreateDto
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string IconUrl { get; set; }
         // [Required]
         // public int GroupId { get; set; }

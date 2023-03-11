@@ -20,7 +20,7 @@ namespace WorldCupQatarBackend.Data.Helpers.Seed
 
                 if (!context.WorldCups.Any())
                 {
-                    var worldCupData = File.ReadAllText(path + @"/Seed/worldcup.json");
+                    var worldCupData = File.ReadAllText(path + @"/Helpers/Seed/worldcup.json");
                     var worldCup = JsonSerializer.Deserialize<WorldCup>(worldCupData);
 
                     context.WorldCups.Add(worldCup);
@@ -29,7 +29,7 @@ namespace WorldCupQatarBackend.Data.Helpers.Seed
 
                 if (!context.Locations.Any())
                 {
-                    var locationsData = File.ReadAllText(path + @"/Seed/locations.json");
+                    var locationsData = File.ReadAllText(path + @"/Helpers/Seed/locations.json");
                     var locations = JsonSerializer.Deserialize<List<Location>>(locationsData);
 
                     foreach (var location in locations)
@@ -42,7 +42,7 @@ namespace WorldCupQatarBackend.Data.Helpers.Seed
 
                 if (!context.Stadiums.Any())
                 {
-                    var stadiumsData = File.ReadAllText(path + @"/Seed/stadiums.json");
+                    var stadiumsData = File.ReadAllText(path + @"/Helpers/Seed/stadiums.json");
                     var stadiums = JsonSerializer.Deserialize<List<Stadium>>(stadiumsData);
 
                     foreach (var stadium in stadiums)
