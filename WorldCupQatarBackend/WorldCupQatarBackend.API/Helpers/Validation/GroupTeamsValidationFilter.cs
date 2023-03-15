@@ -78,7 +78,6 @@ namespace WorldCupQatarBackend.API.Helpers.Validation
                     return;
                 }
             }
-
         }
 
         private string GetPossibleTeamsBadRequestMessage(List<TeamValidator> possibleTeams)

@@ -16,6 +16,7 @@ namespace WorldCupQatarBackend.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Match> Matches { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -57,6 +58,20 @@ namespace WorldCupQatarBackend.Data
             modelBuilder.Entity<Team>().Property(ts => ts.Points).IsRequired().HasDefaultValue(0);
             modelBuilder.Entity<Team>().HasOne(t => t.Group).WithMany(g => g.Teams)
                  .HasForeignKey(s => new { s.GroupId, s.WorldCupId }).OnDelete(DeleteBehavior.Restrict);
+
+            // Match
+            modelBuilder.Entity<Match>().Property(m => m.MatchDateTime).IsRequired();
+            modelBuilder.Entity<Match>().Property(m => m.Team1Goals).IsRequired();
+            modelBuilder.Entity<Match>().Property(m => m.Team2Goals).IsRequired();
+            modelBuilder.Entity<Match>().Property(m => m.Status)
+                .HasConversion(m => m.ToString(), x => (MatchStatus)Enum.Parse(typeof(MatchStatus), x))
+                .IsRequired();
+            modelBuilder.Entity<Match>().HasOne(m => m.Team1).WithMany()
+                .HasForeignKey(m => m.Team1Id).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Match>().HasOne(m => m.Team2).WithMany()
+                .HasForeignKey(m => m.Team2Id).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Match>().HasOne(m => m.Stadium).WithMany()
+                .HasForeignKey(m => m.StadiumId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
