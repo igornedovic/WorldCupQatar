@@ -21,12 +21,12 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
             _mapper = mapper;
         }
 
-        private ServiceResult<GroupReadDto> BadRequestMessage(ServiceResult<GroupReadDto> result, string message)
-        {
-            result.IsBadRequest = true;
-            result.Message = message;
-            return result;
-        }
+        // private ServiceResult<GroupReadDto> BadRequestMessage(ServiceResult<GroupReadDto> result, string message)
+        // {
+        //     result.IsBadRequest = true;
+        //     result.Message = message;
+        //     return result;
+        // }
 
         public async Task<ServiceResult<GroupReadDto>> AddGroupAsync(GroupCreateDto groupCreateDto)
         {
@@ -36,14 +36,14 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
 
             if (group != null)
             {
-                return BadRequestMessage(result, $"{group.Name} already exists!");
+                return result.BadRequestMessage($"{group.Name} already exists!");
             }
 
             group = _mapper.Map<Group>(groupCreateDto);
 
             if (group.Teams.Count != 4)
             {
-                return BadRequestMessage(result, "Number of teams must be 4 in one group!");
+                return result.BadRequestMessage("Number of teams must be 4 in one group!");
             }
 
             foreach (var team in group.Teams)
@@ -52,7 +52,7 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
 
                 if (existingTeam != null)
                 {
-                    return BadRequestMessage(result, $"{team.Name} already exists in another group!");
+                    return result.BadRequestMessage($"{team.Name} already exists in another group!");
                 }
 
                 team.Group = group;
@@ -62,7 +62,7 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
 
             if (!await _unitOfWork.CommitAsync())
             {
-                return BadRequestMessage(result, "Failed to add a new group and its teams!");
+                return result.BadRequestMessage("Failed to add a new group and its teams!");
             }
 
             result.Payload = _mapper.Map<GroupReadDto>(group);

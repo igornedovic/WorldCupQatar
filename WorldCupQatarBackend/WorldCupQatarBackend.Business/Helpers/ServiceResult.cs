@@ -10,5 +10,12 @@ namespace WorldCupQatarBackend.Business.Helpers
         public bool IsBadRequest { get; set; }
         public string Message { get; set; }
         public T Payload { get; set; }
+
+        public ServiceResult<T> BadRequestMessage(string message)
+        {
+            IsBadRequest = true;
+            Message = message;
+            return this;
+        }
     }
 }

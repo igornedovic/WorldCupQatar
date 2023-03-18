@@ -19,10 +19,14 @@ namespace WorldCupQatarBackend.Data.Defaults.UnitOfWork
             WorldCupRepository = new WorldCupRepository(_context);
             GroupRepository = new GroupRepository(_context);
             TeamRepository = new TeamRepository(_context);
+            MatchRepository = new MatchRepository(_context);
+            StadiumRepository = new StadiumRepository(_context);
         }
         public IWorldCupRepository WorldCupRepository { get; set; }
         public IGroupRepository GroupRepository { get; set; }
         public ITeamRepository TeamRepository { get; set; }
+        public IMatchRepository MatchRepository { get; set; }
+        public IStadiumRepository StadiumRepository { get; set; }
 
         public async Task<bool> CommitAsync()
         {

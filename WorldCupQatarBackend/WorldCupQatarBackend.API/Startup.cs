@@ -36,7 +36,10 @@ namespace WorldCupQatarBackend.API
         {
             services.AddScoped<GroupTeamsValidationFilter>();
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => 
+            {
+                options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+            });
 
             services.AddDbContext<WorldCupDbContext>(options =>
             {
@@ -47,6 +50,7 @@ namespace WorldCupQatarBackend.API
 
             services.AddScoped<IWorldCupService, WorldCupService>();
             services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IMatchService, MatchService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 

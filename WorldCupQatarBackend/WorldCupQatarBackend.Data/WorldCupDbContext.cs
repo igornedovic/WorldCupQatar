@@ -61,8 +61,8 @@ namespace WorldCupQatarBackend.Data
 
             // Match
             modelBuilder.Entity<Match>().Property(m => m.MatchDateTime).IsRequired();
-            modelBuilder.Entity<Match>().Property(m => m.Team1Goals).IsRequired();
-            modelBuilder.Entity<Match>().Property(m => m.Team2Goals).IsRequired();
+            modelBuilder.Entity<Match>().Property(m => m.Team1Goals).HasDefaultValueSql("NULL");
+            modelBuilder.Entity<Match>().Property(m => m.Team2Goals).HasDefaultValueSql("NULL");
             modelBuilder.Entity<Match>().Property(m => m.Status)
                 .HasConversion(m => m.ToString(), x => (MatchStatus)Enum.Parse(typeof(MatchStatus), x))
                 .IsRequired();

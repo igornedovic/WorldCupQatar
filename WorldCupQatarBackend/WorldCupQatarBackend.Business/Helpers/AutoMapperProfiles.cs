@@ -23,6 +23,11 @@ namespace WorldCupQatarBackend.Business.Helpers
 
             CreateMap<TeamCreateDto, Team>();
             CreateMap<Team, TeamReadDto>();
+
+            CreateMap<MatchCreateDto, Match>()
+                .ForMember(dest => dest.MatchDateTime, opt => opt.MapFrom(src =>
+                    DateTime.ParseExact(src.MatchDateTime, "yyyy-MM-dd HH:mm", null)));
+            CreateMap<Match, MatchReadDto>();
         }
     }
 }
