@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WorldCupQatarBackend.API.Helpers.Validation;
 using WorldCupQatarBackend.Business.DTOs;
 using WorldCupQatarBackend.Business.Interfaces.Services;
 
@@ -20,6 +21,7 @@ namespace WorldCupQatarBackend.API.Controllers
 
         // POST api/matches
         [HttpPost]
+        [ServiceFilter(typeof(MatchValidationFilter))]
         public async Task<ActionResult<MatchReadDto>> AddMatch(MatchCreateDto matchCreateDto)
         {
             var result = await _matchService.AddMatchAsync(matchCreateDto);
