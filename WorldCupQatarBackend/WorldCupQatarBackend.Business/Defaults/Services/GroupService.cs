@@ -30,6 +30,14 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
             return _mapper.Map<List<GroupReadDto>>(groups);
         }
 
+        public async Task<List<TeamReadDto>> GetTeamsByGroupAsync(int id)
+        {
+            var teams = await _unitOfWork.TeamRepository.GetListAsync(filter: x => x.GroupId == id,
+                                                                      orderDesc: x => x.Points);
+
+            return _mapper.Map<List<TeamReadDto>>(teams);
+        }
+
         public async Task<ServiceResult<GroupReadDto>> AddGroupAsync(GroupCreateDto groupCreateDto)
         {
             ServiceResult<GroupReadDto> result = new();
