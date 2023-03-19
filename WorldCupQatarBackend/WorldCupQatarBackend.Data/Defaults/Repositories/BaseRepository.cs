@@ -64,6 +64,9 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
             _context.Set<T>().Add(entity);
         }
 
-
+        public void Update(T entity)
+        {
+            _context.Set<T>().Update(entity);
+        }
     }
 }

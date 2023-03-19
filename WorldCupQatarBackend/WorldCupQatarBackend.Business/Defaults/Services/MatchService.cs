@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using WorldCupQatarBackend.Business.DTOs;
 using WorldCupQatarBackend.Business.Helpers;
 using WorldCupQatarBackend.Business.Interfaces.Services;
@@ -86,6 +88,84 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
             result.Payload = _mapper.Map<MatchReadDto>(newMatch);
 
             return result;
+        }
+
+        public async Task<string> UpdateMatchStatusAndResult(int id, MatchResultDto matchResultDto)
+        {
+            var matchToUpdate = await _unitOfWork.MatchRepository
+                                    .GetFirstAsync(filter: x => x.Id == id,
+                                                   includes: new List<Func<IQueryable<Match>, IIncludableQueryable<Match, object>>>()
+                                                   {
+                                                        x => x.Include(m => m.Team1),
+                                                        x => x.Include(m => m.Team2)
+                                                   });
+
+            var newStatus = (MatchStatus)Enum.Parse(typeof(MatchStatus), matchResultDto.NewStatus);
+
+            if (matchToUpdate == null ||
+                        (newStatus == MatchStatus.Finished
+                                    && matchToUpdate.MatchDateTime.AddMinutes(90) > DateTime.Now))
+            {
+                return null;
+            }
+
+            matchToUpdate.Status = newStatus;
+            
+            matchToUpdate.Team1Goals = matchResultDto.Team1Goals;
+            matchToUpdate.Team2Goals = matchResultDto.Team2Goals;
+
+            matchToUpdate.Team1.MatchesPlayed += 1;
+            matchToUpdate.Team2.MatchesPlayed += 1;
+            
+            matchToUpdate.Team1.GoalsScored += matchResultDto.Team1Goals;
+            matchToUpdate.Team1.GoalsConceded += matchResultDto.Team2Goals;
+
+            matchToUpdate.Team2.GoalsScored += matchResultDto.Team2Goals;
+            matchToUpdate.Team2.GoalsConceded += matchResultDto.Team1Goals;
+
+            switch (matchToUpdate.Status)
+            {
+                case MatchStatus.Team1Forfeit:
+                    matchToUpdate.Team2.Wins += 1;
+                    matchToUpdate.Team2.Points += 3;
+                    matchToUpdate.Team1.Losses += 1;
+                    break;
+                case MatchStatus.Team2Forfeit:
+                    matchToUpdate.Team1.Wins += 1;
+                    matchToUpdate.Team1.Points += 3;
+                    matchToUpdate.Team2.Losses += 1;
+                    break;
+                case MatchStatus.Finished:
+                    if (matchResultDto.Team1Goals > matchResultDto.Team2Goals)
+                    {
+                        matchToUpdate.Team1.Wins += 1;
+                        matchToUpdate.Team1.Points += 3;
+                        matchToUpdate.Team2.Losses += 1;
+                    }
+                    else if (matchResultDto.Team1Goals < matchResultDto.Team2Goals)
+                    {
+                        matchToUpdate.Team2.Wins += 1;
+                        matchToUpdate.Team2.Points += 3;
+                        matchToUpdate.Team1.Losses += 1;
+                    }
+                    else
+                    {
+                        matchToUpdate.Team1.Draws += 1;
+                        matchToUpdate.Team1.Points += 1;
+                        matchToUpdate.Team2.Draws += 1;
+                        matchToUpdate.Team2.Points += 1;
+                    }
+                    break;
+            }
+
+            _unitOfWork.MatchRepository.Update(matchToUpdate);
+
+            if (!await _unitOfWork.CommitAsync())
+            {
+                return null;
+            }
+
+            return newStatus.ToString();
         }
     }
 }

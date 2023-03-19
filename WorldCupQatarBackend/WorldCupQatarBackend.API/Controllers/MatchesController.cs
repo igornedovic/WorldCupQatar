@@ -16,7 +16,7 @@ namespace WorldCupQatarBackend.API.Controllers
         private readonly IMatchService _matchService;
         public MatchesController(IMatchService matchService)
         {
-            _matchService = matchService;      
+            _matchService = matchService;
         }
 
         // POST api/matches
@@ -30,5 +30,17 @@ namespace WorldCupQatarBackend.API.Controllers
 
             return Ok(result.Payload);
         }
+
+        // PUT api/matches/{id}
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateMatchStatus(int id, MatchResultDto matchResultDto)
+        {
+            var newStatus = await _matchService.UpdateMatchStatusAndResult(id, matchResultDto);
+
+            if (newStatus == null) return BadRequest("Failed to update match status and result!");
+
+            return Ok("Successfully updated match status and result!");
+        }
+
     }
 }
