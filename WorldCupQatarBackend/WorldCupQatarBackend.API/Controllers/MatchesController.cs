@@ -19,6 +19,15 @@ namespace WorldCupQatarBackend.API.Controllers
             _matchService = matchService;
         }
 
+        // GET api/matches
+        [HttpGet]
+        public async Task<ActionResult<List<MatchReadDto>>> GetAllMatches()
+        {
+            var matches = await _matchService.GetAllMatchesAsync();
+
+            return Ok(matches);
+        }
+
         // POST api/matches
         [HttpPost]
         [ServiceFilter(typeof(MatchValidationFilter))]

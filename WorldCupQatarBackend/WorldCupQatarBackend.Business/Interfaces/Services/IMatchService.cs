@@ -9,6 +9,7 @@ namespace WorldCupQatarBackend.Business.Interfaces.Services
 {
     public interface IMatchService
     {
+        public Task<List<MatchReadDto>> GetAllMatchesAsync();
         public Task<ServiceResult<MatchReadDto>> AddMatchAsync(MatchCreateDto matchCreateDto);
         public Task<string> UpdateMatchStatusAndResult(int id, MatchResultDto matchResultDto);
     }

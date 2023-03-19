@@ -22,6 +22,19 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public async Task<List<MatchReadDto>> GetAllMatchesAsync()
+        {
+            var matches = await _unitOfWork.MatchRepository
+                                                   .GetListAsync(includes: new List<Func<IQueryable<Match>, IIncludableQueryable<Match, object>>>()
+                                                   {
+                                                        x => x.Include(m => m.Team1),
+                                                        x => x.Include(m => m.Team2),
+                                                        x => x.Include(m => m.Stadium)
+                                                   });
+
+            return _mapper.Map<List<MatchReadDto>>(matches);
+        }
         public async Task<ServiceResult<MatchReadDto>> AddMatchAsync(MatchCreateDto matchCreateDto)
         {
             ServiceResult<MatchReadDto> result = new();
@@ -110,13 +123,13 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
             }
 
             matchToUpdate.Status = newStatus;
-            
+
             matchToUpdate.Team1Goals = matchResultDto.Team1Goals;
             matchToUpdate.Team2Goals = matchResultDto.Team2Goals;
 
             matchToUpdate.Team1.MatchesPlayed += 1;
             matchToUpdate.Team2.MatchesPlayed += 1;
-            
+
             matchToUpdate.Team1.GoalsScored += matchResultDto.Team1Goals;
             matchToUpdate.Team1.GoalsConceded += matchResultDto.Team2Goals;
 
