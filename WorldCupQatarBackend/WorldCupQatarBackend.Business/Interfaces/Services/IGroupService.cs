@@ -9,6 +9,7 @@ namespace WorldCupQatarBackend.Business.Interfaces.Services
 {
     public interface IGroupService
     {
+        public Task<List<GroupReadDto>> GetAllGroupsAsync();
         public Task<ServiceResult<GroupReadDto>> AddGroupAsync(GroupCreateDto groupCreateDto);
     }
 }

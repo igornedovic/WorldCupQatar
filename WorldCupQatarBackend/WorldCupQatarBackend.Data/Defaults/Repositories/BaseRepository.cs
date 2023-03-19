@@ -20,7 +20,7 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
             _context = context;
         }
 
-        private IQueryable<T> QueryBuilder(IQueryable<T> baseQuery, Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
+        private IQueryable<T> QueryBuilder(IQueryable<T> baseQuery, Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc = null)
         {
             var query = baseQuery;
 
@@ -34,28 +34,33 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
                 query = includes.Aggregate(query, (current, include) => include(current));
             }
 
-            if (orderByDesc != null)
+            if (orderAsc != null)
             {
-                query = query.OrderByDescending(orderByDesc);
+                query = query.OrderBy(orderAsc);
+            }
+
+            if (orderDesc != null)
+            {
+                query = query.OrderByDescending(orderDesc);
             }
 
             return query;
         }
-        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
+        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc = null)
         {
-            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderByDesc)
+            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderAsc, orderDesc)
                             .ToListAsync();
         }
 
-        public async Task<T> GetFirstAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
+        public async Task<T> GetFirstAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null,  Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc = null)
         {
-            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderByDesc)
+            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderAsc, orderDesc)
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderByDesc = null)
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null,  Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc = null)
         {
-            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderByDesc)
+            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderAsc, orderDesc)
                             .AnyAsync();
         }
 

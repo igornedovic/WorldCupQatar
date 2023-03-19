@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using WorldCupQatarBackend.Business.DTOs;
 using WorldCupQatarBackend.Business.Helpers;
 using WorldCupQatarBackend.Business.Interfaces.Services;
@@ -21,12 +23,12 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
             _mapper = mapper;
         }
 
-        // private ServiceResult<GroupReadDto> BadRequestMessage(ServiceResult<GroupReadDto> result, string message)
-        // {
-        //     result.IsBadRequest = true;
-        //     result.Message = message;
-        //     return result;
-        // }
+        public async Task<List<GroupReadDto>> GetAllGroupsAsync()
+        {
+            var groups = await _unitOfWork.GroupRepository.GetListAsync(orderAsc: x => x.Name);
+
+            return _mapper.Map<List<GroupReadDto>>(groups);
+        }
 
         public async Task<ServiceResult<GroupReadDto>> AddGroupAsync(GroupCreateDto groupCreateDto)
         {

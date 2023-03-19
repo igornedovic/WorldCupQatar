@@ -9,6 +9,5 @@ namespace WorldCupQatarBackend.Business.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<TeamReadDto> Teams { get; set; } = new List<TeamReadDto>();
     }
 }

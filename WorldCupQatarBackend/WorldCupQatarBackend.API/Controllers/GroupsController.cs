@@ -19,6 +19,23 @@ namespace WorldCupQatarBackend.API.Controllers
             _groupService = groupService;   
         }
 
+        // GET api/groups
+        [HttpGet]
+        public async Task<ActionResult<List<GroupReadDto>>> GetAllGroups()
+        {
+            var groups = await _groupService.GetAllGroupsAsync();
+
+            return Ok(groups);
+        }
+
+        // GET api/groups/{name}
+        [HttpGet("{name}")]
+        public async Task<ActionResult<GroupReadDto>> GetGroupByName(string name)
+        {
+            return null;
+        }
+
+
         // POST api/groups
         [HttpPost]
         [ServiceFilter(typeof(GroupTeamsValidationFilter))]
