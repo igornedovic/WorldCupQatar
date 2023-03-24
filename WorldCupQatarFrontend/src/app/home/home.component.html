@@ -1,1 +1,20 @@
-<p style="margin-top: 500px;">home works!</p>
+<div class="pricing-header px-3 py-2 pt-md-5 pb-md-4 mx-auto mt-5 text-center">
+  <h1 class="display-4">World cup - {{worldCup.name}}</h1>
+  <p class="h3">Stadiums: </p>
+</div>
+
+<div class="container">
+  <div class="row card-deck mb-3 text-center">
+    <div class="col-3" *ngFor="let stadium of firstRowStadiums">
+        <app-stadium [stadium]="stadium"></app-stadium>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row card-deck mb-3 text-center">
+    <div class="col-3" *ngFor="let stadium of secondRowStadiums">
+        <app-stadium [stadium]="stadium"></app-stadium>
+    </div>
+  </div>
+</div>

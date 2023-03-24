@@ -7,7 +7,6 @@ namespace WorldCupQatarBackend.Business.DTOs
 {
     public class WorldCupReadDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public List<StadiumReadDto> Stadiums { get; set; }
     }

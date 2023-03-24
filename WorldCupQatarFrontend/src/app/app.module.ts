@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,9 +10,10 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { ManageGroupsTeamsComponent } from './manage-groups-teams/manage-groups-teams.component';
 import { ManageMatchesComponent } from './manage-matches/manage-matches.component';
+import { StadiumComponent } from './home/stadium/stadium.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, ManageGroupsTeamsComponent, ManageMatchesComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, ManageGroupsTeamsComponent, ManageMatchesComponent, StadiumComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -19,6 +21,7 @@ import { ManageMatchesComponent } from './manage-matches/manage-matches.componen
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
     }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
