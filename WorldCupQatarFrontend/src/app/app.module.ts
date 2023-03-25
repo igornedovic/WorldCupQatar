@@ -15,6 +15,7 @@ import { GroupComponent } from './home/group/group.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TeamComponent } from './home/team/team.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     ManageMatchesComponent,
     StadiumComponent,
     GroupComponent,
+    TeamComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,26 @@
+<table class="table table-bordered table-striped my-2" >
+  <thead>
+    <tr>
+      <th></th>
+      <th>Country</th>
+      <th>Matches played</th>
+      <th>Wins</th>
+      <th>Draws</th>
+      <th>Losses</th>
+      <th>Goals</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team of teams; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{ team.iconUrl }} {{ team.name }}</td>
+      <td>{{ team.matchesPlayed }}</td>
+      <td>{{ team.wins }}</td>
+      <td>{{ team.draws }}</td>
+      <td>{{ team.losses }}</td>
+      <td>{{ team.goalsScored }} : {{ team.goalsConceded }}</td>
+      <td>{{ team.points }}</td>
+    </tr>
+  </tbody>
+</table>

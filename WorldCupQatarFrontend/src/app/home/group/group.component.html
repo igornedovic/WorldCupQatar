@@ -1,12 +1,12 @@
 <button
   type="button"
   class="btn"
-  style="background-color: rgba(111, 28, 28, 0.732); color: white;"
-  (click)="isCollapsed = !isCollapsed"
+  style="background-color: rgba(111, 28, 28, 1); color: white;"
+  (click)="onGroupClick(group.id)"
   [attr.aria-expanded]="!isCollapsed"
   aria-controls="collapseBasic"
 >
-  {{group.name}}  
+  {{group.name}}
   <i *ngIf="isCollapsed" class="fa fa-caret-up"></i>
   <i *ngIf="!isCollapsed" class="fa fa-caret-down"></i>
 </button>
@@ -18,9 +18,6 @@
   [isAnimated]="true"
 >
   <div class="well well-lg card card-block card-header"  style="background-color: white;">
-    <!-- <div class="d-flex align-items-baseline">
-      <label for="layover" class="ml-2">Only without layover</label>
-    </div> -->
-    <p>Test</p>
+    <app-team [teams]="teams"></app-team>
   </div>
 </div>

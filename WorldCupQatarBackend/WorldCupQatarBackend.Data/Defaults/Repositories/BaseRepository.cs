@@ -20,7 +20,7 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
             _context = context;
         }
 
-        private IQueryable<T> QueryBuilder(IQueryable<T> baseQuery, Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc = null)
+        private IQueryable<T> QueryBuilder(IQueryable<T> baseQuery, Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc1 = null, Expression<Func<T, object>> orderDesc2 = null)
         {
             var query = baseQuery;
 
@@ -39,16 +39,16 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
                 query = query.OrderBy(orderAsc);
             }
 
-            if (orderDesc != null)
+            if (orderDesc1 != null)
             {
-                query = query.OrderByDescending(orderDesc);
+                query = query.OrderByDescending(orderDesc1).ThenByDescending(orderDesc2);
             }
 
             return query;
         }
-        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc = null)
+        public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc1 = null, Expression<Func<T, object>> orderDesc2 = null)
         {
-            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderAsc, orderDesc)
+            return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderAsc, orderDesc1, orderDesc2)
                             .ToListAsync();
         }
 

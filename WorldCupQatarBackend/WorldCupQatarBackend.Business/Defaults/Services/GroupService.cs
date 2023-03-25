@@ -33,7 +33,8 @@ namespace WorldCupQatarBackend.Business.Defaults.Services
         public async Task<List<TeamReadDto>> GetTeamsByGroupAsync(int id)
         {
             var teams = await _unitOfWork.TeamRepository.GetListAsync(filter: x => x.GroupId == id,
-                                                                      orderDesc: x => x.Points);
+                                                                      orderDesc1: x => x.Points,
+                                                                      orderDesc2: x => (x.GoalsScored - x.GoalsConceded));
 
             return _mapper.Map<List<TeamReadDto>>(teams);
         }

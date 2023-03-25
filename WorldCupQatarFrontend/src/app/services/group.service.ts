@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { GroupInterface } from '../models/group.model';
+import { TeamInterface } from '../models/team.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,31 @@ export class GroupService {
       }),
       tap((groups) => {
         this._groups.next(groups);
+      })
+    );
+  }
+
+  getGroupTeams(id: number) {
+    return this.http.get<TeamInterface[]>(this.apiUrl + `groups/${id}/teams`).pipe(
+      map((response) => {
+        const teams: TeamInterface[] = [];
+
+        response.forEach((t) => {
+          teams.push({
+            id: t.id,
+            name: t.name,
+            iconUrl: t.iconUrl,
+            matchesPlayed: t.matchesPlayed,
+            wins: t.wins,
+            draws: t.draws,
+            losses: t.losses,
+            goalsScored: t.goalsScored,
+            goalsConceded: t.goalsConceded,
+            points: t.points
+          });
+        });
+
+        return teams;
       })
     );
   }

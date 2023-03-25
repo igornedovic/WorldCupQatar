@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GroupInterface } from 'src/app/models/group.model';
+import { TeamInterface } from 'src/app/models/team.model';
+import { GroupService } from 'src/app/services/group.service';
 
 @Component({
   selector: 'app-group',
@@ -8,12 +10,23 @@ import { GroupInterface } from 'src/app/models/group.model';
 })
 export class GroupComponent implements OnInit {
   @Input() group!: GroupInterface;
+  teams: TeamInterface[] = [];
 
   isCollapsed = false;
 
-  constructor() { }
+  constructor(private groupService: GroupService) { }
 
   ngOnInit(): void {
+  }
+
+  onGroupClick(id: number) {
+    this.isCollapsed = !this.isCollapsed;
+    
+    if (this.isCollapsed) {
+      this.groupService.getGroupTeams(id).subscribe(teams => {
+        this.teams = teams;
+      })
+    }
   }
 
 }
