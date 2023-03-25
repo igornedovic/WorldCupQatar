@@ -11,9 +11,21 @@ import { HomeComponent } from './home/home.component';
 import { ManageGroupsTeamsComponent } from './manage-groups-teams/manage-groups-teams.component';
 import { ManageMatchesComponent } from './manage-matches/manage-matches.component';
 import { StadiumComponent } from './home/stadium/stadium.component';
+import { GroupComponent } from './home/group/group.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, ManageGroupsTeamsComponent, ManageMatchesComponent, StadiumComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    ManageGroupsTeamsComponent,
+    ManageMatchesComponent,
+    StadiumComponent,
+    GroupComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,7 +33,10 @@ import { StadiumComponent } from './home/stadium/stadium.component';
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
     }),
-    HttpClientModule
+    HttpClientModule,
+    TooltipModule.forRoot(),
+    CollapseModule.forRoot(),
+    AccordionModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

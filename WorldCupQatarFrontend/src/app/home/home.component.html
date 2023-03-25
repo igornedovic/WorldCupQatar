@@ -1,5 +1,5 @@
-<div class="pricing-header px-3 py-2 pt-md-5 pb-md-4 mx-auto mt-5 text-center">
-  <h1 class="display-4">World cup - {{worldCup.name}}</h1>
+<div class="px-3 py-2 pt-md-5 pb-md-4 mx-auto mt-5 text-center">
+  <h1 class="display-4">World cup - {{worldCup?.name}}</h1>
   <p class="h3">Stadiums: </p>
 </div>
 
@@ -12,9 +12,19 @@
 </div>
 
 <div class="container">
-  <div class="row card-deck mb-3 text-center">
+  <div class="row card-deck mb-2 text-center">
     <div class="col-3" *ngFor="let stadium of secondRowStadiums">
         <app-stadium [stadium]="stadium"></app-stadium>
     </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <p class="h3">Groups: </p>
+</div>
+
+<div class="container">
+  <div class="col-12" *ngFor="let group of groups">
+    <app-group [group]="group"></app-group>
   </div>
 </div>

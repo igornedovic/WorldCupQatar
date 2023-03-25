@@ -1,0 +1,26 @@
+<button
+  type="button"
+  class="btn"
+  style="background-color: rgba(111, 28, 28, 0.732); color: white;"
+  (click)="isCollapsed = !isCollapsed"
+  [attr.aria-expanded]="!isCollapsed"
+  aria-controls="collapseBasic"
+>
+  {{group.name}}  
+  <i *ngIf="isCollapsed" class="fa fa-caret-up"></i>
+  <i *ngIf="!isCollapsed" class="fa fa-caret-down"></i>
+</button>
+<hr style="height: 1px; border: none; color: #333; background-color: #333" />
+<div
+  id="collapseBasic"
+  class="mb-4"
+  [collapse]="!isCollapsed"
+  [isAnimated]="true"
+>
+  <div class="well well-lg card card-block card-header"  style="background-color: white;">
+    <!-- <div class="d-flex align-items-baseline">
+      <label for="layover" class="ml-2">Only without layover</label>
+    </div> -->
+    <p>Test</p>
+  </div>
+</div>
