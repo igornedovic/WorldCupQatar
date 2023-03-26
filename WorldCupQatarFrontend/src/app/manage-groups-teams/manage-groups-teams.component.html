@@ -1,1 +1,62 @@
-<p style="margin-top: 500px">manage-groups-teams works!</p>
+<div class="px-3 py-2 pt-md-5 pb-md-4 mx-auto mt-5 text-center">
+  <h1 class="display-4">Add new group with teams</h1>
+</div>
+
+<form [formGroup]="groupTeamsForm" (ngSubmit)="onSaveGroupWithTeams()">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 offset-3">
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          placeholder="Group name"
+        />
+      </div>
+    </div>
+    <div class="row mt-5 d-flex align-items-center justify-content-center" formGroupName="team">
+      <div class="col-3 text-right">
+        <label>Team:</label>
+      </div>
+      <div class="col-3">
+        <input
+          #countryName
+          type="text"
+          formControlName="name"
+          class="form-control"
+          placeholder="Country name"
+        />
+      </div>
+      <div class="col-3">
+        <input
+          #countryFlag
+          type="file"
+          formControlName="iconUrl"
+          accept="image/png, image/jpeg"
+          >
+      </div>
+      <div class="col-3">
+        <button type="button" 
+                class="btn"
+                style="background-color: rgba(111, 28, 28, 1); color: white;"
+                (click)="onAddNewTeam()"
+                >
+         <i class="fa fa-plus"></i></button>
+      </div>
+    </div>
+    <div class="col-6 offset-3 mt-5 custom-padding">
+        <app-teams-table></app-teams-table>
+    </div>
+    <div class="row">
+        <div class="col-6 offset-3 text-right">
+          <button
+            type="submit"
+            class="btn btn-block mt-3 mb-3"
+            style="background-color: rgba(111, 28, 28, 1); color: white;"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+  </div>
+</form>

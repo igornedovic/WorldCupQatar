@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +17,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TeamComponent } from './home/team/team.component';
+import { TeamsTableComponent } from './manage-groups-teams/teams-table/teams-table.component';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { TeamComponent } from './home/team/team.component';
     StadiumComponent,
     GroupComponent,
     TeamComponent,
+    TeamsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,8 @@ import { TeamComponent } from './home/team/team.component';
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
     }),
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     TooltipModule.forRoot(),
     CollapseModule.forRoot(),

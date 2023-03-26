@@ -1,4 +1,4 @@
-<table class="table table-bordered table-striped my-2" >
+<table class="table table-bordered my-2" >
   <thead>
     <tr>
       <th></th>
@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let team of teams; let i = index">
+    <tr class="teamTr" *ngFor="let team of teams; let i = index">
       <td>{{i+1}}</td>
       <td>{{ team.iconUrl }} {{ team.name }}</td>
       <td>{{ team.matchesPlayed }}</td>
