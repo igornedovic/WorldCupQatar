@@ -64,4 +64,15 @@ export class GroupService {
       })
     );
   }
+
+  uploadCountryFlag(imageFile: File) {
+    const formData = new FormData();
+    formData.append('file', imageFile);
+    formData.append('upload_preset', 'tnzfsbju');
+
+    return this.http.post<{ url: string }>(
+      'https://api.cloudinary.com/v1_1/dosbawfen/image/upload',
+      formData
+    );
+  }
 }

@@ -33,6 +33,7 @@
           type="file"
           formControlName="iconUrl"
           accept="image/png, image/jpeg"
+          (change)="onFileChosen($event)"
           >
       </div>
       <div class="col-3">
@@ -45,7 +46,7 @@
       </div>
     </div>
     <div class="col-6 offset-3 mt-5 custom-padding">
-        <app-teams-table></app-teams-table>
+        <app-teams-table [isTeamAdded]="isTeamAdded"></app-teams-table>
     </div>
     <div class="row">
         <div class="col-6 offset-3 text-right">

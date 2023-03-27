@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { TeamInterface } from '../models/team.model';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-manage-groups-teams',
@@ -8,9 +11,12 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ManageGroupsTeamsComponent implements OnInit {
   groupTeamsForm!: FormGroup;
-  team!: FormGroup;
+  teams: TeamInterface[] = [];
+  uploadImageUrl!: string;
 
-  constructor() {}
+  isTeamAdded = false;
+
+  constructor(private groupService: GroupService) {}
 
   ngOnInit(): void {
     this.groupTeamsForm = new FormGroup({
@@ -24,9 +30,23 @@ export class ManageGroupsTeamsComponent implements OnInit {
     });
   }
 
+  onFileChosen(event: Event) {
+    const pickedFile = (event?.target as HTMLInputElement)?.files![0];
+    if (!pickedFile) {
+      return;
+    }
+    
+    this.groupService.uploadCountryFlag(pickedFile)
+                     .subscribe(uploadResponse => {
+                      this.uploadImageUrl = uploadResponse.url;
+                      console.log(this.uploadImageUrl);
+                     })
+  }
+
   onAddNewTeam() {
     this.groupTeamsForm.get("team")?.get("name")?.setValue("");
     this.groupTeamsForm.get("team")?.get("iconUrl")?.setValue("");
+    this.isTeamAdded = true;
   }
 
   onSaveGroupWithTeams() {
