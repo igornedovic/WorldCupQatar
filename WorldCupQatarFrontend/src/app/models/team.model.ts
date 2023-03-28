@@ -1,5 +1,5 @@
 export interface TeamInterface {
-    id: number,
+    id?: number,
     name: string,
     iconUrl: string,
     matchesPlayed?: number,

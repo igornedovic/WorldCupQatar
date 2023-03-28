@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { GroupInterface } from '../models/group.model';
@@ -28,7 +28,7 @@ export class GroupService {
         response.forEach((g) => {
           groups.push({
             id: g.id,
-            name: g.name,
+            groupName: g.groupName,
           });
         });
 
@@ -74,5 +74,31 @@ export class GroupService {
       'https://api.cloudinary.com/v1_1/dosbawfen/image/upload',
       formData
     );
+  }
+
+  addNewGroupWithTeams(groupForm: GroupInterface, addedTeams: TeamInterface[]) {
+    let newGroup: GroupInterface;
+
+    return this.http.post<GroupInterface>(this.apiUrl + 'groups', {
+      name: groupForm.groupName,
+      worldCupId: groupForm.worldCupId,
+      teams: addedTeams.map(t => {
+        return {
+          name: t.name,
+          iconUrl: t.iconUrl
+        }
+      })
+    }).pipe(
+      switchMap(response => {
+        newGroup = { id: response.id, groupName: response.groupName };
+
+        return this.groups;
+      }),
+      take(1),
+      tap(groups => {
+        const newGroups = groups.concat(newGroup);
+        this._groups.next(newGroups);
+      })
+    )
   }
 }

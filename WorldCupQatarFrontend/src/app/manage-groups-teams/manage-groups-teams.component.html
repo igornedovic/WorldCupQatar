@@ -8,13 +8,16 @@
       <div class="col-6 offset-3">
         <input
           type="text"
-          formControlName="name"
+          formControlName="groupName"
           class="form-control"
-          placeholder="Group name"
+          placeholder="Group name (Format: Group + letter)"
         />
       </div>
     </div>
-    <div class="row mt-5 d-flex align-items-center justify-content-center" formGroupName="team">
+    <div
+      class="row mt-5 d-flex align-items-center justify-content-center"
+      formGroupName="teams"
+    >
       <div class="col-3 text-right">
         <label>Team:</label>
       </div>
@@ -34,30 +37,35 @@
           formControlName="iconUrl"
           accept="image/png, image/jpeg"
           (change)="onFileChosen($event)"
-          >
+        />
       </div>
       <div class="col-3">
-        <button type="button" 
-                class="btn"
-                style="background-color: rgba(111, 28, 28, 1); color: white;"
-                (click)="onAddNewTeam()"
-                >
-         <i class="fa fa-plus"></i></button>
+        <button
+          type="button"
+          class="btn"
+          style="background-color: rgba(111, 28, 28, 1); color: white"
+          (click)="onAddNewTeam()"
+        >
+          <i class="fa fa-plus"></i>
+        </button>
       </div>
     </div>
     <div class="col-6 offset-3 mt-5 custom-padding">
-        <app-teams-table [isTeamAdded]="isTeamAdded"></app-teams-table>
+      <app-teams-table
+        [addedTeams]="addedTeams"
+        [isTeamAdded]="isTeamAdded"
+      ></app-teams-table>
     </div>
     <div class="row">
-        <div class="col-6 offset-3 text-right">
-          <button
-            type="submit"
-            class="btn btn-block mt-3 mb-3"
-            style="background-color: rgba(111, 28, 28, 1); color: white;"
-          >
-            Save
-          </button>
-        </div>
+      <div class="col-6 offset-3 text-right">
+        <button
+          type="submit"
+          class="btn btn-block mt-3 mb-3"
+          style="background-color: rgba(111, 28, 28, 1); color: white"
+        >
+          Save
+        </button>
       </div>
+    </div>
   </div>
 </form>
