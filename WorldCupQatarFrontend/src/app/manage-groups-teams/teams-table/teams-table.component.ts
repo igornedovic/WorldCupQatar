@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
 import { TeamInterface } from 'src/app/models/team.model';
 
 @Component({
@@ -8,7 +9,8 @@ import { TeamInterface } from 'src/app/models/team.model';
 })
 export class TeamsTableComponent implements OnInit {
   @Input() addedTeams : TeamInterface[] = [];
-  @Input() isTeamAdded! : Boolean;
+  @Output() updatedTeamsEvent = new EventEmitter<TeamInterface[]>();
+  @Input() isTeamAdded = false;
 
   constructor() { }
 
@@ -16,7 +18,7 @@ export class TeamsTableComponent implements OnInit {
   }
 
   onRemoveTeam(name: string) {
-    this.addedTeams = this.addedTeams.filter(t => t.name != name);
+    this.updatedTeamsEvent.emit(this.addedTeams.filter(t => t.name != name));
   }
 
 }

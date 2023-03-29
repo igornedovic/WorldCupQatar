@@ -19,7 +19,8 @@ namespace WorldCupQatarBackend.Business.Helpers
             CreateMap<Location, LocationReadDto>();
 
             CreateMap<GroupCreateDto, Group>();
-            CreateMap<Group, GroupReadDto>();
+            CreateMap<Group, GroupReadDto>()
+                .ForMember(dest => dest.GroupName, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<TeamCreateDto, Team>();
             CreateMap<Team, TeamReadDto>();

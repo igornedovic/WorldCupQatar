@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -11,13 +11,14 @@ import { GroupService } from '../services/group.service';
   templateUrl: './manage-groups-teams.component.html',
   styleUrls: ['./manage-groups-teams.component.css'],
 })
-export class ManageGroupsTeamsComponent implements OnInit {
+export class ManageGroupsTeamsComponent implements OnInit, OnDestroy {
   groupTeamsForm!: FormGroup;
   addedTeams: TeamInterface[] = [];
   uploadImageUrl!: string;
   pickedFile!: File;
   isTeamAdded = false;
   private groupSub!: Subscription;
+  teamNameError: string | null = null;
 
   constructor(
     private groupService: GroupService,
@@ -39,9 +40,13 @@ export class ManageGroupsTeamsComponent implements OnInit {
     this.pickedFile = (event?.target as HTMLInputElement)?.files![0];
   }
 
+  updateTeams(newTeams: TeamInterface[]) {
+      this.addedTeams = newTeams;
+  }
+
   onAddNewTeam() {
     if (
-      !this.groupTeamsForm?.get('team')?.get('name')?.value ||
+      !this.groupTeamsForm?.get('teams')?.get('name')?.value ||
       !this.pickedFile
     ) {
       return;
@@ -53,12 +58,12 @@ export class ManageGroupsTeamsComponent implements OnInit {
         this.uploadImageUrl = uploadResponse.url;
 
         this.addedTeams.push({
-          name: this.groupTeamsForm?.get('team')?.get('name')?.value,
+          name: this.groupTeamsForm?.get('teams')?.get('name')?.value,
           iconUrl: this.uploadImageUrl,
         });
 
-        this.groupTeamsForm.get('team')?.get('name')?.setValue('');
-        this.groupTeamsForm.get('team')?.get('iconUrl')?.setValue('');
+        this.groupTeamsForm.get('teams')?.get('name')?.setValue('');
+        this.groupTeamsForm.get('teams')?.get('iconUrl')?.setValue('');
 
         this.uploadImageUrl = '';
         this.isTeamAdded = true;
@@ -71,7 +76,16 @@ export class ManageGroupsTeamsComponent implements OnInit {
       .subscribe((response) => {
         this.toastrService.success('Successful!');
       }, error => {
-        console.log(error);
+        if (error?.error.includes("Possible teams to enter"))
+        {
+          this.teamNameError = error?.error;
+        }
       });
+  }
+
+  ngOnDestroy() {
+    if (this.groupSub) {
+      this.groupSub.unsubscribe();
+    }
   }
 }

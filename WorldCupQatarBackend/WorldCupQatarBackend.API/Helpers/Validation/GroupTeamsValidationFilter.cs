@@ -88,11 +88,11 @@ namespace WorldCupQatarBackend.API.Helpers.Validation
             {
                 if (i != possibleTeams.Count - 1)
                 {
-                    stringBuilder.Append($"{possibleTeams[i]},");
+                    stringBuilder.Append($"{possibleTeams[i]}, ");
                 }
                 else
                 {
-                    stringBuilder.Append($"{possibleTeams[i]}");
+                    stringBuilder.Append($"{possibleTeams[i]}.");
                 }
             }
 

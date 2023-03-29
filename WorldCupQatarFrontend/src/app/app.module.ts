@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TeamComponent } from './home/team/team.component';
 import { TeamsTableComponent } from './manage-groups-teams/teams-table/teams-table.component';
+import { ErrorInterceptor } from './interceptor/error.interceptor';
 
 
 @NgModule({
@@ -46,7 +47,9 @@ import { TeamsTableComponent } from './manage-groups-teams/teams-table/teams-tab
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
