@@ -16,9 +16,12 @@ import { GroupComponent } from './home/group/group.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TeamComponent } from './home/team/team.component';
 import { TeamsTableComponent } from './manage-groups-teams/teams-table/teams-table.component';
 import { ErrorInterceptor } from './interceptor/error.interceptor';
+import { MatchPreviewComponent } from './manage-matches/match-preview/match-preview.component';
+import { NewMatchComponent } from './manage-matches/new-match/new-match.component';
 
 
 @NgModule({
@@ -32,6 +35,8 @@ import { ErrorInterceptor } from './interceptor/error.interceptor';
     GroupComponent,
     TeamComponent,
     TeamsTableComponent,
+    MatchPreviewComponent,
+    NewMatchComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,7 @@ import { ErrorInterceptor } from './interceptor/error.interceptor';
     TooltipModule.forRoot(),
     CollapseModule.forRoot(),
     AccordionModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
