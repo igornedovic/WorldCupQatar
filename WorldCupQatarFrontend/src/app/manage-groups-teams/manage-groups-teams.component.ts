@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
@@ -22,7 +23,8 @@ export class ManageGroupsTeamsComponent implements OnInit, OnDestroy {
 
   constructor(
     private groupService: GroupService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -74,8 +76,15 @@ export class ManageGroupsTeamsComponent implements OnInit, OnDestroy {
     this.groupSub = this.groupService
       .addNewGroupWithTeams(this.groupTeamsForm.value, this.addedTeams)
       .subscribe((response) => {
-        this.toastrService.success('Successful!');
+        this.toastrService.success('Successfully added new group with teams!');
+        this.groupTeamsForm.reset();
+        this.addedTeams = [];
+        this.teamNameError = null;
+        setTimeout(() => {
+          this.router.navigateByUrl('/home');
+        }, 1500);
       }, error => {
+        this.teamNameError = null;
         if (error?.error.includes("Possible teams to enter"))
         {
           this.teamNameError = error?.error;
