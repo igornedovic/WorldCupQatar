@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { GroupService } from 'src/app/services/group.service';
 
 @Component({
   selector: 'app-new-match',
@@ -10,7 +11,9 @@ export class NewMatchComponent implements OnInit {
   title?: string;
   closeBtnName?: string;
 
-  constructor(public bsModalRef: BsModalRef) {}
+  constructor(public bsModalRef: BsModalRef, private groupService: GroupService) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    
+  }
 }

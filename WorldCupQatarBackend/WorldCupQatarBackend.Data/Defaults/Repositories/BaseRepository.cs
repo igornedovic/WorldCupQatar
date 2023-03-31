@@ -46,6 +46,17 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
 
             return query;
         }
+
+        private IQueryable<TProjection> ProjectedQueryBuilder<TProjection>(IQueryable<T> query, Expression<Func<T, TProjection>> selector = null, Expression<Func<T, bool>> filter = null) where TProjection: class
+        {
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return query.Select(selector);
+        }
+
         public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> includes = null, Expression<Func<T, object>> orderAsc = null, Expression<Func<T, object>> orderDesc1 = null, Expression<Func<T, object>> orderDesc2 = null)
         {
             return await QueryBuilder(_context.Set<T>().AsQueryable(), filter, includes, orderAsc, orderDesc1, orderDesc2)
@@ -72,6 +83,11 @@ namespace WorldCupQatarBackend.Data.Defaults.Repositories
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
+        }
+
+        public async Task<List<TProjection>> GetProjectedListAsync<TProjection>(Expression<Func<T, TProjection>> selector = null, Expression<Func<T, bool>> filter = null) where TProjection: class
+        {
+            return await ProjectedQueryBuilder<TProjection>(_context.Set<T>().AsQueryable(), selector, filter).ToListAsync();
         }
     }
 }
