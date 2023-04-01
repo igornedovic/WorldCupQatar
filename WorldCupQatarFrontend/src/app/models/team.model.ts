@@ -1,7 +1,7 @@
 export interface TeamInterface {
     id?: number,
     name: string,
-    iconUrl: string,
+    iconUrl?: string,
     matchesPlayed?: number,
     wins?: number,
     draws?: number,
@@ -9,4 +9,5 @@ export interface TeamInterface {
     goalsScored?: number,
     goalsConceded?: number,
     points?: number
+    groupId?: number
 }
