@@ -11,9 +11,11 @@ export interface MatchInterface {
     status?: MatchStatus;
     team1Id?: number;
     team1Name?: string;
+    team1IconUrl?: string;
     team1Goals?: number;
     team2Id?: number;
     team2Name?: string;
+    team2IconUrl?: string;
     team2Goals?: number;
     stadiumId?: number;
     stadiumName?: string;

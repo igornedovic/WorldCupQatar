@@ -1,1 +1,50 @@
-<p>match-preview works!</p>
+<div class="card my-4" style="width: 500px; height: 200px;">
+    <div class="card-body">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h5 class="card-title">
+            Stadium: {{ match.stadiumName }}
+          </h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 d-flex justify-content-center align-items-center">
+          <p class="card-title text-center">
+            <img src="{{match.team1IconUrl}}" alt="{{ match.team1Name}}" style="height: 25px; width: 30px">
+            <br>
+            <b>{{ match.team1Name }}</b>
+          </p>
+        </div>
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+          <input type="number" class="mb-2" style="width: 45px;" [disabled]="true">
+        </div>
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+          <p class="card-title"><b style="font-size: x-large;" class="mb-1"> : </b></p>
+        </div>
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+            <input type="number" class="mb-2" style="width: 45px;" [disabled]="true">
+        </div>
+        <div class="col-md-3 d-flex justify-content-center align-items-center">
+            <p class="card-title text-center">
+              <img src="{{match.team2IconUrl}}" alt="{{match.team2Name}}" style="height: 25px; width: 30px">
+              <br>
+              <b>{{ match.team2Name }}</b>
+            </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="card-text">
+            <b>Match date and time: {{ match.matchDateTime | date: 'dd.MM.yyyy HH:mm'}}</b>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="card-text">
+            <strong>Match status: {{ match.status }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

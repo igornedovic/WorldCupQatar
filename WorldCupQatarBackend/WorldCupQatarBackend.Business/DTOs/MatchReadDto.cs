@@ -14,7 +14,9 @@ namespace WorldCupQatarBackend.Business.DTOs
         public int? Team2Goals { get; set; }
         public string Status { get; set; }
         public string Team1Name { get; set; }
+        public string Team1IconUrl { get; set; }
         public string Team2Name { get; set; }
+        public string Team2IconUrl { get; set; }
         public string StadiumName { get; set; }
     }
 }

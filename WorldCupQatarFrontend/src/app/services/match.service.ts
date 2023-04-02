@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { MatchInterface } from '../models/match.model';
 
@@ -17,6 +17,34 @@ export class MatchService {
 
   get matches() {
     return this._matches.asObservable();
+  }
+
+  getMatches() {
+    return this.http.get<MatchInterface[]>(this.apiUrl + 'matches').pipe(
+      map((response) => {
+        const matches: MatchInterface[] = [];
+
+        response.forEach((m) => {
+          matches.push({
+            id: m.id,
+            matchDateTime: m.matchDateTime,
+            status: m.status,
+            team1Id: m.team1Id,
+            team1Name: m.team1Name,
+            team1IconUrl: m.team1IconUrl,
+            team2Id: m.team2Id,
+            team2Name: m.team2Name,
+            team2IconUrl: m.team2IconUrl,
+            stadiumName: m.stadiumName
+          });
+        });
+
+        return matches;
+      }),
+      tap((matches) => {
+        this._matches.next(matches);
+      })
+    );
   }
 
   addNewMatch(matchForm: MatchInterface) {
