@@ -64,9 +64,11 @@
         <div class="row mt-3 mb-3">
           <div class="col-6">
             <input
+              #matchDateTime
               type="datetime-local"
               class="form-control"
               formControlName="matchDateTime"
+              (change)="onMatchDateTimeChange(matchDateTime)"
               required
             >
           </div>

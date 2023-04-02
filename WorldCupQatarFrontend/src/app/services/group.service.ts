@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -12,7 +12,7 @@ import { TeamInterface } from '../models/team.model';
 })
 export class GroupService {
   apiUrl = environment.apiUrl;
-  private _groups = new ReplaySubject<GroupInterface[]>(1);
+  private _groups = new BehaviorSubject<GroupInterface[]>([]);
 
   constructor(private http: HttpClient) {}
 
