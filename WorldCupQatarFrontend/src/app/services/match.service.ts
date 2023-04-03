@@ -32,9 +32,11 @@ export class MatchService {
             team1Id: m.team1Id,
             team1Name: m.team1Name,
             team1IconUrl: m.team1IconUrl,
+            team1Goals: m?.team1Goals ?? '-',
             team2Id: m.team2Id,
             team2Name: m.team2Name,
             team2IconUrl: m.team2IconUrl,
+            team2Goals: m?.team2Goals ?? '-',
             stadiumName: m.stadiumName
           });
         });

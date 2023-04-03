@@ -12,11 +12,11 @@ export interface MatchInterface {
     team1Id?: number;
     team1Name?: string;
     team1IconUrl?: string;
-    team1Goals?: number;
+    team1Goals?: number | string;
     team2Id?: number;
     team2Name?: string;
     team2IconUrl?: string;
-    team2Goals?: number;
+    team2Goals?: number | string;
     stadiumId?: number;
     stadiumName?: string;
 }
