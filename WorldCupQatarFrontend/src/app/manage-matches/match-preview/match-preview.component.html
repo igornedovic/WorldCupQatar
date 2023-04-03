@@ -16,13 +16,17 @@
           </p>
         </div>
         <div class="col-md-2 d-flex justify-content-center align-items-center">
-          <input type="number" class="mb-2" style="width: 45px;" [min]="0" [max]="15" [disabled]="true">
+          <input type="number" 
+                 class="mb-2" 
+                 style="width: 45px;" [min]="0" [max]="15" [disabled]="true">
         </div>
         <div class="col-md-2 d-flex justify-content-center align-items-center">
           <p class="card-title"><b style="font-size: x-large;" class="mb-1"> : </b></p>
         </div>
         <div class="col-md-2 d-flex justify-content-center align-items-center">
-            <input type="number" class="mb-2" style="width: 45px;" [min]="0" [max]="15" [disabled]="true">
+            <input type="number" 
+                   class="mb-2" 
+                   style="width: 45px;" [min]="0" [max]="15" [disabled]="true">
         </div>
         <div class="col-md-3 d-flex justify-content-center align-items-center">
             <p class="card-title text-center">
@@ -47,13 +51,13 @@
             <strong>Match status: <span class="ml-2">{{ match.status }}</span></strong>
           </p>
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <p class="card-text">
             <strong>Match result: 
               <span class="ml-2">{{ match.team1Goals }} : {{ match.team2Goals }}</span>
             </strong>
           </p>
-        </div>
+        </div> -->
       </div>
       <div class="row mt-2">
         <div class="col-12 d-flex align-items-baseline">
@@ -62,14 +66,22 @@
             <select
               #selectedStatus
               class="form-select form-control form-control-inline ml-2"
+              (change)="onStatusChange()"
             >
-              <option>Select 1</option>
+                <option
+                  *ngFor="let status of matchStatuses"
+                  [value]="status"
+                  [attr.selected]="status == match.status ? true : null"
+                >
+                  {{ status }}
+                </option>
             </select>
             <input
               #changeStatusCheckbox
               type="checkbox"
               id="changeStatus"
               name="changeStatus"
+              (change)="onChangeCheckbox(changeStatusCheckbox)"
             />
             <button
               #saveButton
