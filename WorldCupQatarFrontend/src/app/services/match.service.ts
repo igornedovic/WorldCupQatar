@@ -73,13 +73,13 @@ export class MatchService {
     )
   }
 
-  updateMatchStatusAndResult(id: number, newStatus: MatchStatus, team1Goals: number, team2Gaols: number) {
+  updateMatchStatusAndResult(id: number, newStatus: MatchStatus, team1Goals: number, team2Goals: number) {
     let responseText: string;
 
     return this.http.put(this.apiUrl + `matches/${id}`, {
       newStatus: newStatus,
       team1Goals: team1Goals,
-      team2Gaols: team2Gaols
+      team2Goals: team2Goals
     }, {
       responseType: 'text'
     }).pipe(
@@ -92,7 +92,7 @@ export class MatchService {
         const updatedMatchIndex = matches.findIndex(m => m.id === id);
         matches[updatedMatchIndex].status = newStatus;
         matches[updatedMatchIndex].team1Goals = team1Goals;
-        matches[updatedMatchIndex].team2Goals = team2Gaols;
+        matches[updatedMatchIndex].team2Goals = team2Goals;
         this._matches.next(matches);
         return responseText;
       })

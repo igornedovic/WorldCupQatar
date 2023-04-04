@@ -19,6 +19,8 @@ import { MatchService } from 'src/app/services/match.service';
 export class MatchPreviewComponent implements OnInit, AfterViewInit {
   @Input() match!: MatchInterface;
   public matchStatuses = Object.values(MatchStatus);
+  notStartedStatus = MatchStatus.NotStarted;
+  editMode = true;
   minGoals = 0;
   maxGoals = 15;
   @ViewChild('selectedStatus') selectedStatusRef!: ElementRef;
@@ -37,6 +39,15 @@ export class MatchPreviewComponent implements OnInit, AfterViewInit {
     this.saveButton.nativeElement.disabled = true;
     this.team1Goals.nativeElement.disabled = true;
     this.team2Goals.nativeElement.disabled = true;
+
+    if (this.match) {
+      this.team1Goals.nativeElement.value = this.match.team1Goals;
+      this.team2Goals.nativeElement.value = this.match.team2Goals;
+
+      if (this.match.status != MatchStatus.NotStarted) {
+        this.editMode = false;
+      }
+    }
   }
 
   onStatusChange() {
@@ -77,6 +88,11 @@ export class MatchPreviewComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateMatchStatusAndResult(id: number | undefined) {
+    if (this.team1Goals.nativeElement.value === '' || this.team2Goals.nativeElement.value === '') {
+        this.toastrService.error("Invalid goal number input!");
+        return;
+    }
+
     const newStatus  = this.selectedStatusRef.nativeElement.value as MatchStatus;
     const team1Goals = +this.team1Goals.nativeElement.value;
     const team2Goals = +this.team2Goals.nativeElement.value;
@@ -94,6 +110,7 @@ export class MatchPreviewComponent implements OnInit, AfterViewInit {
     this.matchService.updateMatchStatusAndResult(id, newStatus, team1Goals, team2Goals).subscribe(
       response => {
         this.toastrService.success(response);
+        this.editMode = false;
       }
     )
   }
