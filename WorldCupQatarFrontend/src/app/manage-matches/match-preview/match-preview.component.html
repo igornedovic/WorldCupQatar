@@ -16,17 +16,19 @@
           </p>
         </div>
         <div class="col-md-2 d-flex justify-content-center align-items-center">
-          <input type="number" 
+          <input #team1Goals
+                 type="number" 
                  class="mb-2" 
-                 style="width: 45px;" [min]="0" [max]="15" [disabled]="true">
+                 style="width: 45px;" [min]="minGoals" [max]="maxGoals">
         </div>
         <div class="col-md-2 d-flex justify-content-center align-items-center">
           <p class="card-title"><b style="font-size: x-large;" class="mb-1"> : </b></p>
         </div>
         <div class="col-md-2 d-flex justify-content-center align-items-center">
-            <input type="number" 
+            <input #team2Goals
+                   type="number" 
                    class="mb-2" 
-                   style="width: 45px;" [min]="0" [max]="15" [disabled]="true">
+                   style="width: 45px;" [min]="minGoals" [max]="maxGoals">
         </div>
         <div class="col-md-3 d-flex justify-content-center align-items-center">
             <p class="card-title text-center">
@@ -86,7 +88,9 @@
             <button
               #saveButton
               type="button"
-              class="btn btn-secondary"
+              class="btn"
+              style="background-color: rgba(111, 28, 28, 1); color: white"
+              (click)="onUpdateMatchStatusAndResult(match.id)"
             >
               Save
             </button>

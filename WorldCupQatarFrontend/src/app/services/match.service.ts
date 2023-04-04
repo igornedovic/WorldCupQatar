@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 
-import { MatchInterface } from '../models/match.model';
+import { MatchInterface, MatchStatus } from '../models/match.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +32,11 @@ export class MatchService {
             team1Id: m.team1Id,
             team1Name: m.team1Name,
             team1IconUrl: m.team1IconUrl,
-            team1Goals: m?.team1Goals ?? '-',
+            team1Goals: m?.team1Goals ?? '',
             team2Id: m.team2Id,
             team2Name: m.team2Name,
             team2IconUrl: m.team2IconUrl,
-            team2Goals: m?.team2Goals ?? '-',
+            team2Goals: m?.team2Goals ?? '',
             stadiumName: m.stadiumName
           });
         });
@@ -69,6 +69,32 @@ export class MatchService {
       tap(matches => {
         const newMatches = matches.concat(newMatch);
         this._matches.next(newMatches);
+      })
+    )
+  }
+
+  updateMatchStatusAndResult(id: number, newStatus: MatchStatus, team1Goals: number, team2Gaols: number) {
+    let responseText: string;
+
+    return this.http.put(this.apiUrl + `matches/${id}`, {
+      newStatus: newStatus,
+      team1Goals: team1Goals,
+      team2Gaols: team2Gaols
+    }, {
+      responseType: 'text'
+    }).pipe(
+      switchMap(response => {
+        responseText = response;
+        return this.matches;
+      }),
+      take(1),
+      map(matches => {
+        const updatedMatchIndex = matches.findIndex(m => m.id === id);
+        matches[updatedMatchIndex].status = newStatus;
+        matches[updatedMatchIndex].team1Goals = team1Goals;
+        matches[updatedMatchIndex].team2Goals = team2Gaols;
+        this._matches.next(matches);
+        return responseText;
       })
     )
   }
