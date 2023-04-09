@@ -59,7 +59,9 @@ export class MatchService {
           matchDateTime: response.matchDateTime,
           status: response.status,
           team1Name: response.team1Name,
+          team1IconUrl: response.team1IconUrl,
           team2Name: response.team2Name,
+          team2IconUrl: response.team2IconUrl,
           stadiumName: response.stadiumName
         }
 

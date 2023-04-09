@@ -111,6 +111,8 @@ export class MatchPreviewComponent implements OnInit, AfterViewInit {
       response => {
         this.toastrService.success(response);
         this.editMode = false;
+        this.team1Goals.nativeElement.disabled = true;
+        this.team2Goals.nativeElement.disabled = true;
       }
     )
   }
